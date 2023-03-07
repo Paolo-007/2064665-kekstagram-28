@@ -59,41 +59,34 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
+const createIdGenerator = () => {
+  let id = 1;
+  return () => id++;
+};
 
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return 0;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
-const createComments = () => ({
-  id: createRandomIdFromRangeGenerator(1, 10),
-  avatar: `img/avatar-${createRandomIdFromRangeGenerator(1, 6)}.svg`,
+const createComment = () => ({
+  id: getRandomInteger(1, 10),
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
-const photoComments = Array.from({length: createRandomIdFromRangeGenerator(1, 6)}, createComments);
-
-const idNumber = createRandomIdFromRangeGenerator(1, 25);
-const createPhotoDescription = () => ({
-  //id для фото и url получаются разными, хотя я бы хотел, чтобы они совпадали
-  id: idNumber(),
-  url: `photos/${idNumber()}.jpg`,
-  //
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 200),
-  //массив с комментариями не выгружается
-  comments: photoComments,
+const createComments = () => ({
+  photoComments: Array.from({length: getRandomInteger(1, 6)}, createComment),
 });
 
-const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, createPhotoDescription);
+const idNumber = createIdGenerator();
+const urlNumber = createIdGenerator();
+const createPhotoDescription = () => ({
+  id: idNumber(),
+  url: `photos/${urlNumber()}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInteger(15, 200),
+  comments: createComments(),
+});
+
+const createPhotos = () => ({
+  photoDescriptions: Array.from({length: PHOTO_DESCRIPTION_COUNT}, createPhotoDescription),
+});
+
+createPhotos();
