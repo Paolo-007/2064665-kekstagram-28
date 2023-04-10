@@ -27,13 +27,6 @@ const renderComments = () => {
   } else {
     commentsLoader.classList.remove('hidden');
   }
-
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < commentsShown; i++) {
-    const commentElement = createComment(comments[i]);
-    fragment.append(commentElement);
-  }
-
   commentList.innerHTML = '';
   commentList.append(...comments.slice(0, commentsShown).map(createComment));
   commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
@@ -68,11 +61,14 @@ const showBigPicture = (data) => {
   renderPictureDetails(data);
   comments = data.comments;
   if (comments.length > 0) {
+    commentsShown = 0;
     renderComments();
   }
 };
 
 cancelButton.addEventListener('click', hideBigPicture);
-commentsLoader.addEventListener('click', renderComments);
+commentsLoader.addEventListener('click', () => {
+  renderComments();
+});
 
 export {showBigPicture, renderComments};

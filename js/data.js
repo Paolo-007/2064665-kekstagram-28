@@ -61,7 +61,7 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
-const createComments = () => Array.from({length: getRandomInteger(1, 6)}, createComment);
+const createComments = () => Array.from({length: getRandomInteger(1, 20)}, createComment);
 
 const idNumber = createIdGenerator();
 const urlNumber = createIdGenerator();
