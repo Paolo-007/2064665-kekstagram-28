@@ -61,11 +61,7 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
-// const createComments = () => ({
-//   photoComments: Array.from({length: getRandomInteger(1, 6)}, createComment),
-// });
-
-const createComments = Array.from({length: getRandomInteger(1, 6)}, createComment);
+const createComments = () => Array.from({length: getRandomInteger(1, 6)}, createComment);
 
 const idNumber = createIdGenerator();
 const urlNumber = createIdGenerator();
@@ -74,7 +70,7 @@ const createPhotoDescription = () => ({
   url: `photos/${urlNumber()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(15, 200),
-  comments: createComments,
+  comments: createComments(),
 });
 
 const createPhotos = Array.from({length: PHOTO_DESCRIPTION_COUNT}, createPhotoDescription);

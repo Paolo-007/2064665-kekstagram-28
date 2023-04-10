@@ -9,17 +9,6 @@ const commentTemplateElement = document.querySelector('.social__comment');
 let commentsShown = 0;
 let comments = [];
 
-// const createComment = ({avatar, name, message}) => {
-//   const comment = document.createElement('li');
-//   comment.innerHTML = '<img class="social__picture" src="" alt="" width="35" height="35"><p>';
-//   comment.classList.add('social__comment');
-//   comment.querySelector('p').classList.add('social__text');
-//   comment.querySelector('.social__picture').src = avatar;
-//   comment.querySelector('.social__picture').alt = name;
-//   comment.querySelector('.social__text').textContent = message;
-//   return comment;
-// };
-
 const createComment = ({name, avatar, message}) => {
   const commentElement = commentTemplateElement.cloneNode(true);
   const pictureElement = commentElement.querySelector('.social__picture');
@@ -44,14 +33,9 @@ const renderComments = () => {
     const commentElement = createComment(comments[i]);
     fragment.append(commentElement);
   }
-  // for (let i = 0; i < commentsShown; i++) {
-  //   // const commentElement = createComment(comments[i]);
-  //   commentList.append(...comments.slice(commentsShown).map(createComment));
-  // }
 
   commentList.innerHTML = '';
-  // commentList.append(fragment);
-  commentList.append(...comments.slice(0,comments.length).map(createComment));
+  commentList.append(...comments.slice(0, commentsShown).map(createComment));
   commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
