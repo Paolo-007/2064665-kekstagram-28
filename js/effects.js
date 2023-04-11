@@ -89,11 +89,7 @@ const updateSlider = () => {
     start: chosenEffect.max,
   });
 
-  if (isDefault()) {
-    closeSlider();
-  } else {
-    showSlider();
-  }
+  return isDefault() ? closeSlider() : showSlider();
 };
 
 const onEffectsChange = (evt) => {
