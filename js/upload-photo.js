@@ -76,19 +76,19 @@ const showMessage = (message) => {
     }
   }, {once:true});
 
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      document.body.querySelectorAll('.message').forEach((element) => element.remove());
-    }
-  }, {once:true});
-
   if (messageElement.contains(messageElement.querySelector('button'))) {
     messageElement.querySelector('button').addEventListener('click', () => {
       document.body.querySelectorAll('.message').forEach((element) => element.remove());
     }, {once:true});
   }
 };
+
+uploadPicture.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt) && !isFieldFocused()) {
+    evt.preventDefault();
+    closeModal();
+  }
+});
 
 const blockUploadSubmit = () => {
   uploadSubmit.disabled = true;
@@ -101,14 +101,6 @@ const unblockUploadSubmit = () => {
   uploadSubmit.style.opacity = 1;
   document.querySelectorAll('.message').forEach((e) => e.remove());
 };
-
-document.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt) && !isFieldFocused()) {
-    evt.preventDefault();
-    closeModal();
-  }
-}, {once:true});
-
 
 const setUserFormSubmit = (onSuccess) => {
   formImgUpload.addEventListener('submit', (evt) => {
