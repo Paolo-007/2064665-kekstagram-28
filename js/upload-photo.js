@@ -17,16 +17,13 @@ const pristine = new Pristine(formImgUpload, {
 
 const isValidTag = (tag) => VALID_SYMBOLS.test(tag);
 const hasValidCount = (tags) => tags.length <= COUNT_OF_HASHTAGS;
-const hasUniqueTags = (tags) => {
-  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
-  return lowerCaseTags.length === new Set(lowerCaseTags).size;
-};
+const hasUniqueTags = (tags) => tags.length === new Set(tags).size;
 
 const validateTags = (value) => {
   const tags = value
     .trim()
-    .split(' ')
-    .filter((tag) => tag.trim().length);
+    .toLowerCase()
+    .split(/\s+/);
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
 
