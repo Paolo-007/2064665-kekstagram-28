@@ -9,6 +9,7 @@ import {renderGallery} from './gallery.js';
 import {getData} from './server.js';
 import {filter, getFilteredPictures} from './filter.js';
 import {renderThumbnails} from './thumbnail.js';
+import './load-picture.js';
 
 try {
   const data = await getData();

@@ -1,11 +1,11 @@
+const COUNT_OF_HASHTAGS = 5;
+const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const ERROR_MESSAGE = 'хэштег начинайте с решетки, не более 5 хэштегов';
+
 import {resetEffects} from './effects.js';
 import {resetScale} from './scale.js';
 import {sendData} from './server.js';
 import {isEscapeKey} from './util.js';
-
-const COUNT_OF_HASHTAGS = 5;
-const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-const ERROR_MESSAGE = 'хэштег начинайте с решетки, не более 5 хэштегов';
 
 const formImgUpload = document.querySelector('.img-upload__form');
 const uploadControl = document.querySelector('.img-upload__start');
@@ -127,4 +127,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit, openModal, closeModal};
+export {setUserFormSubmit, closeModal};
