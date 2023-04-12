@@ -2,6 +2,7 @@ const thumbnailTemplate = document.querySelector('#picture').content.querySelect
 const container = document.querySelector('.pictures');
 
 const createThumbnail = ({url, description, comments, likes, id}) => {
+  document.querySelectorAll('.picture').forEach((element) => element.remove());
   const thumbnail = thumbnailTemplate.cloneNode(true);
   thumbnail.querySelector('.picture__img').src = url;
   thumbnail.querySelector('.picture__img').alt = description;
