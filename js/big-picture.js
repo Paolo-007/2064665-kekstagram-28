@@ -71,4 +71,4 @@ commentsLoader.addEventListener('click', () => {
   renderComments();
 });
 
-export {showBigPicture, renderComments};
+export {showBigPicture};
