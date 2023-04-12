@@ -1,4 +1,7 @@
-const getData = () => fetch('https://28.javascript.pages.academy/kekstagram/data')
+const GET_DATA_LINK = 'https://28.javascript.pages.academy/kekstagram/data';
+const SEND_DATA_LINK = 'https://28.javascript.pages.academy/kekstagram';
+
+const getData = () => fetch(GET_DATA_LINK)
   .then((Response) => {
     if(Response.ok) {
       return Response.json();
@@ -8,7 +11,7 @@ const getData = () => fetch('https://28.javascript.pages.academy/kekstagram/data
   });
 
 const sendData = (body) => fetch(
-  'https://28.javascript.pages.academy/kekstagram',
+  SEND_DATA_LINK,
   {
     method: 'POST',
     body,
