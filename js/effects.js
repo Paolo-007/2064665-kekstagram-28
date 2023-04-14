@@ -97,7 +97,7 @@ const onEffectsChange = (evt) => {
     return;
   }
   chosenEffect = EFFECTS[evt.target.value];
-  imageElement.classList.toggle(`effects__preview--${chosenEffect.name}`);
+  imageElement.class = `effects__preview--${chosenEffect.name}`;
   updateSlider();
 };
 
