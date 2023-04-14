@@ -87,9 +87,10 @@ const showMessage = (message) => {
 document.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    closeModal();
     document.body.querySelectorAll('.message').forEach((element) => element.remove());
   }
-}, {once:true});
+});
 
 uploadPicture.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt) && !isFieldFocused()) {
@@ -101,6 +102,7 @@ uploadPicture.addEventListener('keydown', (evt) => {
 const blockUploadSubmit = () => {
   uploadSubmit.disabled = true;
   uploadSubmit.style.opacity = 0.2;
+  showMessage(sendLoading);
 };
 
 const unblockUploadSubmit = () => {
