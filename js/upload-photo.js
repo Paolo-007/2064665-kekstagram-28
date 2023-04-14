@@ -32,7 +32,8 @@ const validateTags = (value) => {
   const tags = value
     .trim()
     .toLowerCase()
-    .split(/\s+/);
+    .split(' ')
+    .filter((tag) => tag.trim().length);
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
 
@@ -74,14 +75,22 @@ const showMessage = (message) => {
     if (evt.target.matches('.message')) {
       document.body.querySelectorAll('.message').forEach((element) => element.remove());
     }
-  }, {once:true});
+  });
 
   if (messageElement.contains(messageElement.querySelector('button'))) {
     messageElement.querySelector('button').addEventListener('click', () => {
       document.body.querySelectorAll('.message').forEach((element) => element.remove());
-    }, {once:true});
+    });
   }
 };
+
+document.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeModal();
+    document.body.querySelectorAll('.message').forEach((element) => element.remove());
+  }
+});
 
 uploadPicture.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt) && !isFieldFocused()) {
@@ -99,7 +108,6 @@ const blockUploadSubmit = () => {
 const unblockUploadSubmit = () => {
   uploadSubmit.disabled = false;
   uploadSubmit.style.opacity = 1;
-  document.querySelectorAll('.message').forEach((e) => e.remove());
 };
 
 const setUserFormSubmit = (onSuccess) => {
@@ -115,13 +123,18 @@ const setUserFormSubmit = (onSuccess) => {
             closeModal();
             unblockUploadSubmit();
             showMessage(sendSuccess);
+          } else {
+            showMessage(sendError);
+            unblockUploadSubmit();
+            openModal();
           }
         })
         .catch(() => {
+          unblockUploadSubmit();
+          openModal();
           showMessage(sendError);
         });
     } else {
-      showMessage(sendError);
       openModal();
     }
   });

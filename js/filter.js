@@ -10,7 +10,7 @@ const filterBlock = document.querySelector('.img-filters');
 let currentFilter = Filter.DEFAULT;
 let pictures = [];
 
-const sortRandom = () => Math.random();
+const sortRandom = () => Math.random() - 0.5;
 
 const sortByComments = (photo1, photo2) => photo2.comments.length - photo1.comments.length;
 
