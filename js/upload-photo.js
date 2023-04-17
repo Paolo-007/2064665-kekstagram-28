@@ -43,25 +43,30 @@ pristine.addValidator(
   ERROR_MESSAGE
 );
 
+const isFieldFocused = () => document.activeElement === fieldHashtag || document.activeElement === fieldComment;
+
 const onEscapeClose = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     document.body.classList.remove('modal-open');
     document.body.querySelectorAll('.message').forEach((element) => element.remove());
   }
+
+  if (isEscapeKey(evt) && !isFieldFocused()) {
+    evt.preventDefault();
+    closeModal();
+  }
 };
 
-const closeModal = () => {
+function closeModal () {
   uploadPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetEffects();
   resetScale();
   pristine.reset();
   formImgUpload.reset();
-  document.removeEventListener('keydown', (evt) => {
-    onEscapeClose(evt);
-  });
-};
+  document.removeEventListener('keydown', onEscapeClose);
+}
 
 uploadCancel.addEventListener('click', () => {
   closeModal();
@@ -75,18 +80,7 @@ const openModal = () => {
 uploadControl.addEventListener('change', () => {
   openModal();
 
-  document.addEventListener('keydown', (evt) => {
-    onEscapeClose(evt);
-  }, {capture: true});
-
-  const isFieldFocused = () => document.activeElement === fieldHashtag || document.activeElement === fieldComment;
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt) && !isFieldFocused()) {
-      evt.preventDefault();
-      closeModal();
-    }
-  });
+  document.addEventListener('keydown', onEscapeClose);
 });
 
 const showMessage = (message) => {
