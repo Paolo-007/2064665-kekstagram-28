@@ -1,5 +1,5 @@
 const GET_DATA_LINK = 'https://28.javascript.pages.academy/kekstagram/data';
-const SEND_DATA_LINK = 'https://28.javascript.pages.academy/kekstagra';
+const SEND_DATA_LINK = 'https://28.javascript.pages.academy/kekstagram';
 
 const getData = () => fetch(GET_DATA_LINK)
   .then((Response) => {
